@@ -17,15 +17,13 @@ EM.run do
 
   ws.on :message do |event|
     message = JSON.parse(event.data)
-    if event.data.include? 'has entered the game'
+    if message['Message'].include? 'joined ['
       ws.send "{Identifier: 1, Message: 'inventory.giveall wood 1000'}"
-      ws.send "{Identifier: 1, Message: 'inventory.giveall stones 1000'}"
       ws.send "{Identifier: 1, Message: 'inventory.giveall lowgradefuel 100'}"
       ws.send "{Identifier: 1, Message: 'inventory.giveall pistol.semiauto 1'}"
-      ws.send "{Identifier: 1, Message: 'inventory.giveall pumpkin 1'}"
       ws.send "{Identifier: 1, Message: 'say If you need more items, join our Discord server & ask in #rust. Invite link: https://discord.gg/EMbcgR8'}"
-    elsif event.data.include? '!help'
-      ws.send "{Identifier: 1, Message: 'say Commands will be added next wipe. In the mean time, join our Discord server & request items.'}"
+    elsif message['Message'] == '!help'
+      ws.send "{Identifier: 1, Message: 'say Commands will be added next wipe. In the mean time, join our Discord server to request items.'}"
     end
     puts message['Message']
   end
