@@ -10,9 +10,8 @@ EM.run do
   ws.on :open do |event|
     p [:open]
     puts event
+    ws.send "{Identifier: 1, Message: 'inventory.giveall pumpkin 5'}"
   end
-
-  # inventory.giveto eg ammo.shotgun.fire 1
 
   ws.on :message do |event|
     message = JSON.parse(event.data)
